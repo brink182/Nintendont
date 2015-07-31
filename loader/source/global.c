@@ -428,6 +428,11 @@ void UpdateNinCFG()
 	if (ncfg->Version == 2)
 	{	//251 blocks, used to be there
 		ncfg->Unused = 0x2;
+		if (ncfg->Config & NIN_CFG_FORCE_WIDE)
+		{
+			//imply WiiU wide mode
+			ncfg->Config |= NIN_CFG_WIIU_WIDE;
+		}
 		ncfg->Version = 3;
 	}
 	if (ncfg->Version == 3)
