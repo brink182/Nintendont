@@ -27,5 +27,5 @@ deploy:
     - loader/loader.dol
   skip_cleanup: true
   on:
-	repo: brink182/Nintendont
+    repo: brink182/Nintendont
     tags: true
