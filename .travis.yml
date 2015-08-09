@@ -11,7 +11,9 @@ install:
   - ./devkitPPCupdate.pl
   - ./devkitARMupdate.pl
   - popd
-script: ./Build.sh
+script:
+  - ./Build.sh
+  - cmp loader/loader.dol nintendont/boot.dol
 cache:
   directories:
     - $HOME/devkitPro
