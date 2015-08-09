@@ -1,20 +1,31 @@
 language: c
 install:
-  - mkdir ~/devkitPro || true
-  - pushd ~/devkitPro
-  - export DEVKITPRO=$PWD
-  - export DEVKITPPC=$PWD/devkitPPC
-  - export DEVKITARM=$PWD/devkitARM
-  - wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitPPCupdate.pl
-  - wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
-  - chmod a+x devkit*update.pl
-  - ./devkitPPCupdate.pl
-  - ./devkitARMupdate.pl
-  - popd
+- mkdir ~/devkitPro || true
+- pushd ~/devkitPro
+- export DEVKITPRO=$PWD
+- export DEVKITPPC=$PWD/devkitPPC
+- export DEVKITARM=$PWD/devkitARM
+- wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitPPCupdate.pl
+- wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
+- chmod a+x devkit*update.pl
+- "./devkitPPCupdate.pl"
+- "./devkitARMupdate.pl"
+- popd
 script:
-  - ./Build.sh
-  - cmp loader/loader.dol nintendont/boot.dol
+- "./Build.sh"
+- cmp loader/loader.dol nintendont/boot.dol
 cache:
   directories:
-    - $HOME/devkitPro
+  - "$HOME/devkitPro"
 before_deploy: zip -r9 nintendont.zip nintendont
+deploy:
+  provider: releases
+  api_key:
+    secure: ffch/7QNoyQ1FbnhTubgkiS4lLYpBvrCw4NmwivWCcV5ked33e1Dvq9RxAmwsaKaseBLUAIHuK9rmRJEDknNCWIlyiw4z7prOh45EotSf2fk3Je01MV1C34y2L6gfz/TBDJeZj+8RKUf0Z8bt7BEBrWS0XYlXldd9ufPTFc3nfM7w3sgsJoj3+rgn/3SLGo68k7xceZkeD1FMF1Kh4ZSA4QhdEsQXHfUZNKrvi1QThEAqaFezLZKe1CQK8ceNptVdmSJiz5eQDHfjSyWKWHyI4JLCLzz7NtsUGyxpebmKzgtwdsAILNmauvgDKbPXM6P41wfyd5gOoh/N8LWNh/vsfwfavKlvBu0BeLIvuLcy0MljQAtLS22lIl3IkLuoMAlJF0l92U5Jfdlcv+oRJ4U5UvE+B19emx90WZM4wP4T1RNHR6pGAh6kegmgc8TSMELWeRvSwQOdgwqD9vkdZnS8czeYl3rx8e2KB/Ov16G4ZJPK98yO01y54akEtzrIeJQllhM5sDYF0tpm6YHnG/k/c+ctf+4AneYiR2PnSZtpIyumXRhPSzRQjl4caEJY7V0RZulg4SmHxrM3DP4dHSQX4cFeytUSBweojGDLwTRmyAxAnvtKVGBNuYG1c9/SJtJwGazBGs0EtRAoxqa1Sm62yIZsrqClQN8gUkl9UYWu0w=
+  file: 
+    - nintendont.zip
+    - loader/loader.dol
+  skip_cleanup: true
+  on:
+	repo: brink182/Nintendont
+    tags: true
