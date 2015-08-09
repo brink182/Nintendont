@@ -4,9 +4,12 @@ install:
   - pushd ~/devkitPro
   - export DEVKITPRO=$PWD
   - export DEVKITPPC=$PWD/devkitPPC
+  - export DEVKITARM=$PWD/devkitARM
   - wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitPPCupdate.pl
-  - chmod a+x devkitPPCupdate.pl
+  - wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
+  - chmod a+x devkit*update.pl
   - ./devkitPPCupdate.pl
+  - ./devkitARMupdate.pl
   - popd
 script: ./Build.sh
 cache:
