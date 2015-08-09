@@ -1,0 +1,15 @@
+language: c
+install:
+  - mkdir ~/devkitPro || true
+  - pushd ~/devkitPro
+  - export DEVKITPRO=$PWD
+  - export DEVKITPPC=$PWD/devkitPPC
+  - wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitPPCupdate.pl
+  - chmod a+x devkitPPCupdate.pl
+  - ./devkitPPCUpdate.pl
+  - popd
+script: ./Build.sh
+cache:
+  directories:
+    - $HOME/devkitPro
+before_deploy: zip -r9 nintendont.zip nintendont
