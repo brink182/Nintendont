@@ -6,7 +6,7 @@ install:
   - export DEVKITPPC=$PWD/devkitPPC
   - wget -N http://download.sourceforge.net/project/devkitpro/Automated%20Installer/devkitPPCupdate.pl
   - chmod a+x devkitPPCupdate.pl
-  - ./devkitPPCUpdate.pl
+  - ./devkitPPCupdate.pl
   - popd
 script: ./Build.sh
 cache:
