@@ -1,7 +1,7 @@
 ### Nintendont [![Build Status](https://travis-ci.org/brink182/Nintendont.svg?branch=develop)](https://travis-ci.org/brink182/Nintendont)
 A Wii Homebrew Project to play GC Games on Wii and vWii on Wii U
 
-___WARNING:___ _This branch will be rebased to FIX94/Nintendont regularly. Please fork there._
+___WARNING:___ _This branch will be rebased to [FIX94/Nintendont](https://github.com/FIX94/Nintendont) regularly. Please fork there._
 
 ### Features:
 -Works on Wii and vWii on Wii U  
