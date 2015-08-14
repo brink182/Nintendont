@@ -146,9 +146,9 @@ void RAMInit(void)
 	
 	*(vu32*)0x8000315C = 0x81;
 }
-void Initialise()
+void Initialize()
 {
-	int i;
+	//int i;
 	AUDIO_Init(NULL);
 	DSP_Init();
 	AUDIO_StopDMA();
@@ -158,12 +158,13 @@ void Initialise()
 	myFont = GRRLIB_LoadTTF(font_ttf, font_ttf_size);
 	background = GRRLIB_LoadTexturePNG(background_png);
 	screen_buffer = GRRLIB_CreateEmptyTexture(rmode->fbWidth, rmode->efbHeight);
-	for (i=0; i<255; i +=5) // Fade background image in from black screen
+	/*for (i=0; i<255; i +=5) // Fade background image in from black screen
 	{
 		GRRLIB_DrawImg(0, 0, background, 0, 1, 1, RGBA(255, 255, 255, i)); // Opacity increases as i does
 		GRRLIB_Render();
 	}
-	ClearScreen();
+	ClearScreen();//*/
+	GRRLIB_Render();
 	gprintf("Initialize Finished\r\n");
 }
 static void (*stub)() = (void*)0x80001800;

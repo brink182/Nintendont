@@ -68,6 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define WHITE				0xFFFFFFFF
 #define YELLOW				0xFFFF00FF
 
+#define TEXTCOLOR			WHITE
+#define TEXTCOLOR_ERROR		RED
+#define TEXTCOLOR_SUCCESS	LIME
+
 #define		HW_REG_BASE		0xCD800000
 #define		HW_RESETS		(HW_REG_BASE + 0x194)
 
@@ -84,6 +88,7 @@ extern u32 Region;
 extern u32 POffset;
 extern NIN_CFG *ncfg;
 extern FILE *cfg;
+bool doautoboot;
 extern GRRLIB_ttfFont *myFont;
 extern GRRLIB_texImg *background;
 extern GRRLIB_texImg *screen_buffer;
@@ -135,7 +140,7 @@ typedef struct
 bool IsWiiU( void );
 const char* const GetRootDevice();
 void RAMInit(void);
-void Initialise();
+void Initialize();
 bool LoadNinCFG();
 bool IsGCGame(u8 *Buffer);
 bool IsTRIGame(char *Path);

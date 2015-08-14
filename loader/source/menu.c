@@ -91,7 +91,7 @@ bool SelectGame( void )
 	{
 		ClearScreen();
 		gprintf("No FAT device found, or missing %s dir!\n", filename);
-		PrintFormat(DEFAULT_SIZE, MAROON, MENU_POS_X, 232, "No FAT device found, or missing %s dir!", filename );
+		PrintFormat(DEFAULT_SIZE, TEXTCOLOR_ERROR, MENU_POS_X, 232, "No FAT device found, or missing %s dir!", filename );
 		ExitToLoader(1);
 	}
 
@@ -217,7 +217,7 @@ bool SelectGame( void )
 		if( FPAD_Start(1) )
 		{
 			ClearScreen();
-			PrintFormat(DEFAULT_SIZE, BLACK, 212, 232, "Returning to loader..." );
+			PrintFormat(DEFAULT_SIZE, TEXTCOLOR, 212, 232, "Returning to loader..." );
 			ExitToLoader(0);
 		}
 
@@ -254,7 +254,7 @@ bool SelectGame( void )
 			{
 				if(DownHeld == 0 || DownHeld > 10)
 				{
-					PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
+					PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
 
 					if( PosX + 1 >= ListMax )
 					{
@@ -279,7 +279,7 @@ bool SelectGame( void )
 				DownHeld = 0;
 			if( FPAD_Right(0) )
 			{
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
 
 				if( PosX == ListMax - 1 )
 				{
@@ -305,7 +305,7 @@ bool SelectGame( void )
 			{
 				if(UpHeld == 0 || UpHeld > 10)
 				{
-					PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
+					PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
 
 					if( PosX <= 0 )
 					{
@@ -330,7 +330,7 @@ bool SelectGame( void )
 				UpHeld = 0;
 			if( FPAD_Left(0) )
 			{
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X+51*6-8, MENU_POS_Y + 20*6 + PosX * 20, " " );
 
 				if( PosX == 0 )
 				{
@@ -360,12 +360,12 @@ bool SelectGame( void )
 			if( redraw )
 			{
 				PrintInfo();
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*1, "Home: Exit");
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*2, "A   : %s", MenuMode ? "Modify" : "Select");
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*3, "B   : %s", MenuMode ? "Game List" : "Settings ");
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*4, MenuMode ? "X/1 : Update" : "");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*1, "Home: Exit");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*2, "A   : %s", MenuMode ? "Modify" : "Select");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*3, "B   : %s", MenuMode ? "Game List" : "Settings ");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*4, MenuMode ? "X/1 : Update" : "");
 				for( i=0; i < ListMax; ++i )
-					PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*5 + i * 20, "%50.50s [%.6s]%s", gi[i+ScrollX].Name, gi[i+ScrollX].ID, i == PosX ? ARROW_LEFT : " " );
+					PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X, MENU_POS_Y + 20*5 + i * 20, "%50.50s [%.6s]%s", gi[i+ScrollX].Name, gi[i+ScrollX].ID, i == PosX ? ARROW_LEFT : " " );
 				GRRLIB_Render();
 				Screenshot();
 				ClearScreen();
@@ -381,7 +381,7 @@ bool SelectGame( void )
 			
 			if( FPAD_Down(0) )
 			{
-				PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+30, SettingY(PosX), " " );
+				PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+30, SettingY(PosX), " " );
 				
 				PosX++;
 
@@ -403,7 +403,7 @@ bool SelectGame( void )
 
 			} else if( FPAD_Up(0) )
 			{
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X+30, SettingY(PosX), " " );
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X+30, SettingY(PosX), " " );
 
 				PosX--;
 
@@ -466,7 +466,7 @@ bool SelectGame( void )
 						ncfg->VideoMode &= ~NIN_VID_MASK;
 						ncfg->VideoMode |= Video;
 						if ((Video & NIN_VID_FORCE) == 0)
-							PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+50, SettingY(NIN_SETTINGS_VIDEOMODE), "%29s", "" );
+							PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+50, SettingY(NIN_SETTINGS_VIDEOMODE), "%29s", "" );
 					} break;
 					case NIN_SETTINGS_VIDEOMODE:
 					{
@@ -494,8 +494,8 @@ bool SelectGame( void )
 				}
 				if (!(ncfg->Config & NIN_CFG_MEMCARDEMU))
 				{
-					PrintFormat(MENU_SIZE, BLACK, MENU_POS_X + 50, SettingY(NIN_SETTINGS_MEMCARDBLOCKS), "%29s", "");
-					PrintFormat(MENU_SIZE, BLACK, MENU_POS_X + 50, SettingY(NIN_SETTINGS_MEMCARDMULTI), "%29s", "");
+					PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X + 50, SettingY(NIN_SETTINGS_MEMCARDBLOCKS), "%29s", "");
+					PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X + 50, SettingY(NIN_SETTINGS_MEMCARDMULTI), "%29s", "");
 				}
 				redraw = 1;
 			}
@@ -508,17 +508,17 @@ bool SelectGame( void )
 					if(ListLoopIndex == NIN_CFG_BIT_HID) //not needed anymore
 						continue;
 					if(ListLoopIndex == NIN_CFG_BIT_USB) //Option gets replaced
-						PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+50, SettingY(ListLoopIndex), "%-18s:%s", OptionStrings[ListLoopIndex], (ncfg->Config & (NIN_CFG_WIIU_WIDE)) ? "On " : "Off");
+						PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+50, SettingY(ListLoopIndex), "%-18s:%s", OptionStrings[ListLoopIndex], (ncfg->Config & (NIN_CFG_WIIU_WIDE)) ? "On " : "Off");
 					else
-						PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+50, SettingY(ListLoopIndex), "%-18s:%s", OptionStrings[ListLoopIndex], (ncfg->Config & (1 << ListLoopIndex)) ? "On " : "Off" );
+						PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+50, SettingY(ListLoopIndex), "%-18s:%s", OptionStrings[ListLoopIndex], (ncfg->Config & (1 << ListLoopIndex)) ? "On " : "Off" );
 				}
-				PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+50, SettingY(ListLoopIndex), "%-18s:%d", OptionStrings[ListLoopIndex], (ncfg->MaxPads));
+				PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+50, SettingY(ListLoopIndex), "%-18s:%d", OptionStrings[ListLoopIndex], (ncfg->MaxPads));
 				ListLoopIndex++;
 
 				u32 LanIndex = ncfg->Language;
 				if (( LanIndex >= NIN_LAN_LAST ) ||  ( LanIndex < NIN_LAN_FIRST ))
 					LanIndex = NIN_LAN_LAST; //Auto
-				PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+50, SettingY(ListLoopIndex),"%-18s:%-4s", OptionStrings[ListLoopIndex], LanguageStrings[LanIndex] );
+				PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+50, SettingY(ListLoopIndex),"%-18s:%-4s", OptionStrings[ListLoopIndex], LanguageStrings[LanIndex] );
 				ListLoopIndex++;
 
 				u32 VideoModeIndex;
@@ -542,7 +542,7 @@ bool SelectGame( void )
 						ncfg->VideoMode |= NIN_VID_AUTO;
 						VideoModeIndex = NIN_VID_INDEX_AUTO;
 				}
-				PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+50, SettingY(ListLoopIndex),"%-18s:%-18s", OptionStrings[ListLoopIndex], VideoStrings[VideoModeIndex] );
+				PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+50, SettingY(ListLoopIndex),"%-18s:%-18s", OptionStrings[ListLoopIndex], VideoStrings[VideoModeIndex] );
 				ListLoopIndex++;
 
 				if( ncfg->VideoMode & NIN_VID_FORCE )
@@ -557,7 +557,7 @@ bool SelectGame( void )
 						ncfg->VideoMode |= NIN_VID_FORCE_NTSC;
 						VideoModeIndex = NIN_VID_INDEX_FORCE_NTSC;
 					}
-					PrintFormat(MENU_SIZE, BLACK, MENU_POS_X+50, SettingY(ListLoopIndex),"%-18s:%-5s", OptionStrings[ListLoopIndex], VideoModeStrings[VideoModeIndex] );
+					PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X+50, SettingY(ListLoopIndex),"%-18s:%-5s", OptionStrings[ListLoopIndex], VideoModeStrings[VideoModeIndex] );
 				}
 				ListLoopIndex++;
 
@@ -566,21 +566,21 @@ bool SelectGame( void )
 					u32 MemCardBlocksVal = ncfg->MemCardBlocks;
 					if (MemCardBlocksVal > MEM_CARD_MAX)
 						MemCardBlocksVal = 0;
-					PrintFormat(MENU_SIZE, BLACK, MENU_POS_X + 50, SettingY(ListLoopIndex), "%-18s:%-4d%s", OptionStrings[ListLoopIndex], MEM_CARD_BLOCKS(MemCardBlocksVal), MemCardBlocksVal > 2 ? "Unstable" : "");
-					PrintFormat(MENU_SIZE, BLACK, MENU_POS_X + 50, SettingY(ListLoopIndex+1), "%-18s:%-4s", OptionStrings[ListLoopIndex+1], (ncfg->Config & (NIN_CFG_MC_MULTI)) ? "On " : "Off");
+					PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X + 50, SettingY(ListLoopIndex), "%-18s:%-4d%s", OptionStrings[ListLoopIndex], MEM_CARD_BLOCKS(MemCardBlocksVal), MemCardBlocksVal > 2 ? "Unstable" : "");
+					PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X + 50, SettingY(ListLoopIndex+1), "%-18s:%-4s", OptionStrings[ListLoopIndex+1], (ncfg->Config & (NIN_CFG_MC_MULTI)) ? "On " : "Off");
 				}
 				ListLoopIndex+=2;
 
-				PrintFormat(MENU_SIZE, BLACK, MENU_POS_X + 50, SettingY(ListLoopIndex), "%-18s:%-4s", OptionStrings[ListLoopIndex], (ncfg->Config & (NIN_CFG_NATIVE_SI)) ? "On " : "Off");
+				PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X + 50, SettingY(ListLoopIndex), "%-18s:%-4s", OptionStrings[ListLoopIndex], (ncfg->Config & (NIN_CFG_NATIVE_SI)) ? "On " : "Off");
 				ListLoopIndex++;
 
-				PrintFormat(MENU_SIZE, BLACK, MENU_POS_X + 30, SettingY(PosX), ARROW_RIGHT);
+				PrintFormat(MENU_SIZE, TEXTCOLOR, MENU_POS_X + 30, SettingY(PosX), ARROW_RIGHT);
 
 				PrintInfo();
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*1, "Home: Exit");
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*2, "A   : %s", MenuMode ? "Modify" : "Select");
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*3, "B   : %s", MenuMode ? "Game List" : "Settings ");
-				PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 430, MENU_POS_Y + 20*4, MenuMode ? "X/1 : Update" : "");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*1, "Home: Exit");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*2, "A   : %s", MenuMode ? "Modify" : "Select");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*3, "B   : %s", MenuMode ? "Game List" : "Settings ");
+				PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X + 430, MENU_POS_Y + 20*4, MenuMode ? "X/1 : Update" : "");
 				GRRLIB_Render();
 				Screenshot();
 				ClearScreen();
@@ -589,7 +589,7 @@ bool SelectGame( void )
 		}
 	}
 	ClearScreen();
-	PrintFormat(DEFAULT_SIZE, BLACK, 212, 232, "Loading, please wait...");
+	PrintFormat(DEFAULT_SIZE, TEXTCOLOR, 212, 232, "Loading, please wait...");
 	GRRLIB_Render();
 	ClearScreen();
 
@@ -611,7 +611,7 @@ bool SelectGame( void )
 
 void PrintInfo()
 {
-	PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*1, "Nintendont Loader v%d.%d (%s)", NIN_VERSION>>16, NIN_VERSION&0xFFFF, IsWiiU() ? "Wii U" : "Wii");
-	PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*2, "Built   : %s %s", __DATE__, __TIME__ );
-	PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*3, "Firmware: %d.%d.%d", *(vu16*)0x80003140, *(vu8*)0x80003142, *(vu8*)0x80003143 );
+	PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X, MENU_POS_Y + 20*1, "Nintendont Loader v%d.%d (%s)", NIN_VERSION>>16, NIN_VERSION&0xFFFF, IsWiiU() ? "Wii U" : "Wii");
+	PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X, MENU_POS_Y + 20*2, "Built   : %s %s", __DATE__, __TIME__ );
+	PrintFormat(DEFAULT_SIZE, TEXTCOLOR, MENU_POS_X, MENU_POS_Y + 20*3, "Firmware: %d.%d.%d", *(vu16*)0x80003140, *(vu8*)0x80003142, *(vu8*)0x80003143 );
 }
