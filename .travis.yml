@@ -25,6 +25,8 @@ deploy:
   file: 
     - nintendont.zip
     - loader/loader.dol
+    - controllerconfigs/controllers.zip
+    - nintendont/titles.txt
   skip_cleanup: true
   on:
     repo: brink182/Nintendont
