@@ -88,7 +88,6 @@ extern u32 Region;
 extern u32 POffset;
 extern NIN_CFG *ncfg;
 extern FILE *cfg;
-bool doautoboot;
 extern GRRLIB_ttfFont *myFont;
 extern GRRLIB_texImg *background;
 extern GRRLIB_texImg *screen_buffer;

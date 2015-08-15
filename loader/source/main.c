@@ -293,33 +293,37 @@ void *init_async(void *xx) {
 
 GRRLIB_texImg *nextbootframe;
 
-void doSaveSettings() {
+void doSaveSettings(bool filterAutoboot) {
 	FILE *cfg;
 	char ConfigPath[20];
+	unsigned int config = ncfg->Config;
+	if (filterAutoboot) {
+		ncfg->Config &= ~NIN_CFG_AUTO_BOOT;
+	}
+
 	// Todo: detects the boot device to prevent writing twice on the same one
 	sprintf(ConfigPath, "/nincfg.bin"); // writes config to boot device, loaded on next launch
-	if (doautoboot) remove(ConfigPath); else {
-		cfg = fopen(ConfigPath, "wb");
-		if( cfg != NULL )
-		{
-			fwrite( ncfg, sizeof(NIN_CFG), 1, cfg );
-			fclose( cfg );
-		}
+	cfg = fopen(ConfigPath, "wb");
+	if( cfg != NULL )
+	{
+		fwrite( ncfg, sizeof(NIN_CFG), 1, cfg );
+		fclose( cfg );
 	}
+
 	sprintf(ConfigPath, "%s:/nincfg.bin", GetRootDevice()); // writes config to game device, used by kernel
-	if (doautoboot) remove(ConfigPath); else {
-		cfg = fopen(ConfigPath, "wb");
-		if( cfg != NULL )
-		{
-			fwrite( ncfg, sizeof(NIN_CFG), 1, cfg );
-			fclose( cfg );
-		}
+	cfg = fopen(ConfigPath, "wb");
+	if( cfg != NULL )
+	{
+		fwrite( ncfg, sizeof(NIN_CFG), 1, cfg );
+		fclose( cfg );
 	}
+
+	ncfg->Config = config;
 }
 
 int main(int argc, char **argv)
 {
-	doautoboot = false;
+	bool doautoboot = false;
 	// Exit after 10 seconds if there is an error
 	__exception_setreload(10);
 //	u64 timeout = 0;
@@ -415,14 +419,6 @@ int main(int argc, char **argv)
 		fclose(meta);
 	}
 
-	/* For slow USB HDDs */
-	time_t timeout = time(NULL);
-	while(time(NULL) - timeout < 10)
-	{
-		if(__io_custom_usbstorage.startup() && __io_custom_usbstorage.isInserted())
-			break;
-		usleep(50000);
-	}
 	fatInitDefault();
 
 	gprintf("Nintendont at your service!\r\n%s\r\n", NIN_BUILD_STRING);
@@ -503,7 +499,7 @@ int main(int argc, char **argv)
 	}
 
 	doautoboot = (ncfg->Config & NIN_CFG_AUTO_BOOT);
-	if (doautoboot) doSaveSettings();
+	if (!argsboot) doSaveSettings(true);
 
 	ReconfigVideo(rmode);
 	UseSD = (ncfg->Config & NIN_CFG_USB) == 0;
@@ -806,7 +802,7 @@ int main(int argc, char **argv)
 		free(DIBuf);
 	}
 
-	if(SaveSettings) doSaveSettings();
+	if(SaveSettings) doSaveSettings(doautoboot);  //could be doSaveSettings(false)
 	u32 ISOShift = 0;
 	if(memcmp(&(ncfg->GameID), "COBR", 4) == 0 || memcmp(&(ncfg->GameID), "GGCO", 4) == 0
 		|| memcmp(&(ncfg->GameID), "GCOP", 4) == 0 || memcmp(&(ncfg->GameID), "RGCO", 4) == 0)
